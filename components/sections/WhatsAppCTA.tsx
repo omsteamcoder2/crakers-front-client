@@ -1,20 +1,34 @@
 "use client"
 
 import { MessageCircle, Sparkles } from "lucide-react"
+import { useState, useEffect } from "react"
+import { WhatsappLogo } from 'phosphor-react'
 
 export default function WhatsAppCTA() {
+  const [sparkles, setSparkles] = useState<any[]>([]);
+
+  // Generate random sparkle positions only on the client side
+  useEffect(() => {
+    const randomSparkles = [...Array(15)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 2}s`,
+    }));
+    setSparkles(randomSparkles);
+  }, []);
+
   return (
     <section className="py-6 sm:py-15 md:py-16 bg-gradient-to-r from-green-600 to-green-500 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
-        {[...Array(15)].map((_, i) => (
+        {sparkles.map((_, i) => (
           <div
             key={i}
             className="absolute animate-pulse"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
+              left: sparkles[i].left,
+              top: sparkles[i].top,
+              animationDelay: sparkles[i].animationDelay,
             }}
           >
             <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
@@ -25,7 +39,7 @@ export default function WhatsAppCTA() {
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center text-white">
           <div className="mb-6 sm:mb-8">
-            <MessageCircle className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto mb-4 sm:mb-6 text-white animate-bounce" />
+            <WhatsappLogo className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto mb-4 sm:mb-6 text-white animate-bounce" />
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4">
               Ready to Celebrate?
             </h2>
@@ -41,7 +55,7 @@ export default function WhatsAppCTA() {
               rel="noopener noreferrer"
               className="bg-white text-green-600 px-5 py-3 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-full text-sm sm:text-base md:text-lg font-semibold hover:bg-green-50 transition-all duration-300 hover:scale-[1.02] sm:hover:scale-105 shadow-md sm:shadow-lg inline-flex items-center justify-center space-x-2 sm:space-x-3"
             >
-              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+              <WhatsappLogo className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
               <span>Contact on WhatsApp</span>
             </a>
 

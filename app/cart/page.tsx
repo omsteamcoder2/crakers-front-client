@@ -11,6 +11,7 @@ interface CartItem {
   name: string
   price: number
   quantity: number
+  productCode: string
   image: string
   category: string
   boxQuantity?: string
@@ -62,6 +63,7 @@ export default function CartPage() {
             name: product.productName,
             price: product.price,
             quantity: localItem.quantity,
+            productCode: product.productCode,
             image: `${API_BASE_URL}${product.image}`,
             category: product.category,
             boxQuantity: product.boxQuantity,
@@ -112,26 +114,17 @@ export default function CartPage() {
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const totalPayable = subtotal + packingCharges
 
-  const proceedToBook = () => {
-    const orderDetails = cartItems
-      .map((item) => `${item.name} - Qty: ${item.quantity} - ₹${item.price * item.quantity}`)
-      .join("\n")
-
-    const whatsappMessage = `Hi Crakers, I want to place an order:
-
-${orderDetails}
-
-Subtotal: ₹${subtotal}
-Packing Charges: ₹${packingCharges}
-Total Payable: ₹${totalPayable}
-
-${notes ? `Notes: ${notes}` : ""}
-
-Please confirm my order and provide payment details.`
-
-    const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(whatsappMessage)}`
-    window.open(whatsappUrl, "_blank")
+const proceedToCheckout = () => {
+  const selectedProducts = cartItems.filter((p) => (p.quantity || 0) > 0);
+  if (selectedProducts.length === 0) {
+    alert("Please select at least one product");
+    return;
   }
+
+  localStorage.setItem("checkoutProducts", JSON.stringify(selectedProducts));
+  window.location.href = "/checkout"; // Navigate to checkout page
+};
+
 
   // Desktop Cart Item Component
   const DesktopCartItem = ({ item }: { item: CartItem }) => (
@@ -368,12 +361,12 @@ Please confirm my order and provide payment details.`
                     )}
 
                     <button
-                      onClick={proceedToBook}
-                      disabled={subtotal < minimumOrderValue}
-                      className="w-full bg-blue-600 text-white py-2 md:py-3 px-4 md:px-6 rounded-lg hover:bg-blue-700 font-semibold text-sm md:text-base disabled:bg-gray-400 disabled:cursor-not-allowed"
-                    >
-                      Proceed to Book →
-                    </button>
+  onClick={proceedToCheckout}
+  disabled={subtotal < minimumOrderValue}
+  className="w-full bg-blue-600 text-white py-2 md:py-3 px-4 md:px-6 rounded-lg hover:bg-blue-700 font-semibold text-sm md:text-base disabled:bg-gray-400 disabled:cursor-not-allowed"
+>
+  Proceed to Checkout →
+</button>
 
                     <div className="mt-3 md:mt-4 text-center">
                       <Link

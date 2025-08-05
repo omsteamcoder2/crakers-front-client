@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   description:
     "Buy premium quality fireworks and crackers online. Best prices, safe delivery, and authentic products for Diwali, weddings, and celebrations.",
   keywords: "fireworks, crackers, diwali, celebration, sparklers, rockets, flower pots",
+   icons: {
+    icon: "/images/logo.png",
+  },
 }
 
 export default function RootLayout({

@@ -3,11 +3,12 @@
 import Link from "next/link"
 import { Phone, Mail, MapPin, MessageCircle, Facebook, Twitter, Instagram } from "lucide-react"
 import { ROUTES } from "@/constants/routes"
+import { WhatsappLogo } from 'phosphor-react'
 
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-r from-red-800 via-red-700 to-orange-600 text-white">
-      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12">
+      <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 md:py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {/* Company Info */}
           <div>
@@ -79,7 +80,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 sm:space-x-3 bg-green-600 hover:bg-green-700 px-3 py-2 sm:px-4 sm:py-3 rounded-lg transition-colors duration-300 text-sm sm:text-base"
             >
-              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+              <WhatsappLogo className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>Chat with us</span>
             </a>
             <p className="text-xs sm:text-sm text-red-100 mt-2 sm:mt-3">
@@ -88,7 +89,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-red-600 mt-6 sm:mt-8 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center">
+        <div className="border-t border-red-600 mt-3 sm:mt-4 pt-3 sm:pt-4 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-xs sm:text-sm text-red-200">© 2024 Crakers. All rights reserved.</p>
           <p className="text-xs sm:text-sm text-red-200 mt-2 sm:mt-0">
             Developed by{" "}

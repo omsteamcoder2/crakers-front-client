@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { MessageCircle, Phone, ArrowUp } from "lucide-react"
+import { Phone, ArrowUp } from "lucide-react"
+import { WhatsappLogo } from 'phosphor-react'
 
 export default function FloatingButtons() {
   const [showScrollTop, setShowScrollTop] = useState(false)
@@ -29,7 +30,7 @@ export default function FloatingButtons() {
         className="bg-green-500 hover:bg-green-600 text-white p-2 sm:p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 animate-pulse"
         aria-label="Chat on WhatsApp"
       >
-        <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
+        <WhatsappLogo className="w-5 h-5 sm:w-6 sm:h-6" />
       </a>
 
       {/* Phone Button */}

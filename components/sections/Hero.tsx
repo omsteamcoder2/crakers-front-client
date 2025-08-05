@@ -94,9 +94,7 @@ export default function Hero() {
               Shop Crackers Now
             </Link>
             <a
-              href="https://wa.me/919876543210?text=Hi%20Crakers,%20I%20want%20to%20explore%20gift%20packs"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/quick-purchase?category=gift box"
               className="bg-transparent border-2 border-white text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:bg-white hover:text-red-600 transition-all duration-300 hover:scale-105"
             >
               Explore Gift Packs

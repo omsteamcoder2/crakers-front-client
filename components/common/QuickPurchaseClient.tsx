@@ -274,30 +274,42 @@ const filteredProducts = products.filter(product =>
     }
   }
 
-  const proceedToBook = () => {
-    const selectedProducts = products.filter((p) => (p.quantity || 0) > 0)
-    if (selectedProducts.length === 0) {
-      alert("Please select at least one product")
-      return
-    }
-
-    const orderDetails = selectedProducts
-      .map((product) => `${product.productName} (${product.productCode}) - Qty: ${product.quantity} - ₹${product.price * (product.quantity || 0)}`)
-      .join("\n")
-
-    const whatsappMessage = `Hi Crakers, I want to make a quick purchase:
-
-${orderDetails}
-
-Total Quantity: ${totalQuantity}
-Total Payable: ₹${totalPayable}
-Packing Charges: ₹${packingCharges}
-
-Please confirm my order and provide payment details.`
-
-    const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(whatsappMessage)}`
-    window.open(whatsappUrl, "_blank")
+const proceedToBook = () => {
+  const selectedProducts = products.filter((p) => (p.quantity || 0) > 0);
+  if (selectedProducts.length === 0) {
+    alert("Please select at least one product");
+    return;
   }
+
+  localStorage.setItem("checkoutProducts", JSON.stringify(selectedProducts));
+  window.location.href = "/checkout"; // Navigate to checkout page
+};
+
+
+//   const proceedToBook = () => {
+//     const selectedProducts = products.filter((p) => (p.quantity || 0) > 0)
+//     if (selectedProducts.length === 0) {
+//       alert("Please select at least one product")
+//       return
+//     }
+
+//     const orderDetails = selectedProducts
+//       .map((product) => `${product.productName} (${product.productCode}) - Qty: ${product.quantity} - ₹${product.price * (product.quantity || 0)}`)
+//       .join("\n")
+
+//     const whatsappMessage = `Hi Crakers, I want to make a quick purchase:
+
+// ${orderDetails}
+
+// Total Quantity: ${totalQuantity}
+// Total Payable: ₹${totalPayable}
+// Packing Charges: ₹${packingCharges}
+
+// Please confirm my order and provide payment details.`
+
+//     const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(whatsappMessage)}`
+//     window.open(whatsappUrl, "_blank")
+//   }
 
   // Desktop Product Card Component
   const DesktopProductCard = ({ product }: { product: Product }) => (
@@ -356,17 +368,31 @@ Please confirm my order and provide payment details.`
         {/* Quantity Selector and Actions */}
         <div className="flex flex-col items-end gap-2 min-w-[150px]">
           <div className="flex items-center gap-2">
-            <label className="text-sm font-medium text-gray-700">Qty:</label>
-            <select
-              value={product.quantity || 0}
-              onChange={(e) => updateQuantity(product.id, Number.parseInt(e.target.value))}
-              className="border border-gray-300 rounded px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent w-20"
-            >
-              {[...Array(21)].map((_, i) => (
-                <option key={i} value={i}>{i}</option>
-              ))}
-            </select>
-          </div>
+  <label className="text-sm font-medium text-gray-700">Qty:</label>
+  
+  {/* Decrement Button */}
+  <button
+    onClick={() => updateQuantity(product.id, (product.quantity || 0) - 1)}
+    className="px-2 border border-gray-300 rounded text-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
+    disabled={product.quantity <= 0} // Disable if quantity is 0
+  >
+    -
+  </button>
+
+  {/* Display Quantity */}
+  <span className="text-sm font-medium text-gray-700">
+    {product.quantity || 0}
+  </span>
+
+  {/* Increment Button */}
+  <button
+    onClick={() => updateQuantity(product.id, (product.quantity || 0) + 1)}
+    className="px-2 border border-gray-300 rounded text-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+  >
+    +
+  </button>
+</div>
+
 
           <div className="text-sm text-gray-600 font-medium">
             Rs. {(product.quantity || 0) * product.price}
@@ -458,46 +484,60 @@ Please confirm my order and provide payment details.`
         )}
 
         {/* Quantity and Actions */}
-        <div className="flex items-center justify-between gap-2 mt-1">
-          <label className="text-xs font-medium text-gray-700">Qty:</label>
-          <select
-            value={product.quantity || 0}
-            onChange={(e) => updateQuantity(product.id, Number.parseInt(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-xs focus:ring-1 focus:ring-blue-500 focus:border-transparent w-16"
-          >
-            {[...Array(21)].map((_, i) => (
-              <option key={i} value={i}>{i}</option>
-            ))}
-          </select>
+        <div className="flex items-center justify-between mt-1">
+  <label className="text-xs font-medium text-gray-700">Qty:</label>
 
-          <span className="text-xs text-gray-800 font-medium">
-            Rs. {(product.quantity || 0) * product.price}
-          </span>
+  {/* Decrement Button (-) */}
+  <button
+    onClick={() => updateQuantity(product.id, Math.max(0, (product.quantity || 0) - 1))}
+    className="px-2 border border-gray-300 rounded text-lg focus:ring-1 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
+    disabled={product.quantity <= 0} // Disable if quantity is 0
+  >
+    -
+  </button>
 
-          {product.inCart ? (
-            <button
-              onClick={() => removeFromCart(product.id)}
-              className="text-[10px] px-2 py-1 rounded transition bg-red-100 text-red-700 hover:bg-red-200 flex items-center gap-1"
-            >
-              <ShoppingCart size={12} />
-              Remove
-            </button>
-          ) : (
-            <button
-              onClick={() => addToCart(product)}
-              className="text-[10px] px-2 py-1 rounded transition bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-1"
-            >
-              <ShoppingCart size={12} />
-              Add
-            </button>
-          )}
-        </div>
+  {/* Display Quantity */}
+  <span className="text-xs font-medium text-gray-800">{product.quantity || 0}</span>
+
+  {/* Increment Button (+) */}
+  <button
+    onClick={() => updateQuantity(product.id, (product.quantity || 0) + 1)}
+    className="px-2 border border-gray-300 rounded text-lg focus:ring-1 focus:ring-blue-500 focus:border-transparent"
+  >
+    +
+  </button>
+
+  {/* Total Price */}
+  <span className="text-xs text-gray-800 font-medium">
+    Rs. {(product.quantity || 0) * product.price}
+  </span>
+
+  {/* Add/Remove Button */}
+  {product.inCart ? (
+    <button
+      onClick={() => removeFromCart(product.id)}
+      className="text-[10px] px-2 py-1 rounded transition bg-red-100 text-red-700 hover:bg-red-200 flex items-center gap-1"
+    >
+      <ShoppingCart size={12} />
+      Remove
+    </button>
+  ) : (
+    <button
+      onClick={() => addToCart(product)}
+      className="text-[10px] px-2 py-1 rounded transition bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-1"
+    >
+      <ShoppingCart size={12} />
+      Add
+    </button>
+  )}
+</div>
+
       </div>
     </div>
   )
 
   return (
-    <div className="pb-20 md:pb-0">
+    <div className="pb-10 md:pb-0">
       <PageHeader
         title="Quick Purchase"
         subtitle="Enter the quantity of your required crackers and complete your booking"
@@ -609,7 +649,7 @@ Please confirm my order and provide payment details.`
     </div>
 
     {/* Filter by Categories */}
-    <div className="bg-white rounded-lg shadow p-4 sticky lg:top-6">
+    <div className="bg-white md:rounded-lg md:shadow md:p-4 sticky lg:top-6">
       <h3 className="text-base font-semibold text-gray-800 flex items-center gap-2 mb-2">
         <Filter size={16} />
         Filter by Category
@@ -829,7 +869,7 @@ Please confirm my order and provide payment details.`
       )}
 
       {showFloatingSummary && (
-        <div className="fixed bottom-0 left-0 w-full bg-gray-200 border-t border-gray-300 shadow-md px-2 py-2 sm:px-3 sm:py-4 z-50">
+        <div className="fixed bottom-0 left-0 w-full bg-gray-200 border-t border-gray-300 shadow-md px-2 py-1 sm:px-3 sm:py-3 z-50">
           <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-1 sm:gap-3">
             <div className="text-xs sm:text-sm text-gray-800 font-medium text-center">
               Qty: <span className="font-semibold">{totalQuantity}</span> &nbsp;|&nbsp;

@@ -1,6 +1,7 @@
 import PageHeader from "@/components/common/PageHeader"
 import ContactForm from "@/components/common/ContactForm"
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react"
+import { WhatsappLogo } from 'phosphor-react'
 
 export default function ContactPage() {
   return (

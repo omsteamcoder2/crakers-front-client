@@ -18,6 +18,14 @@ const PopupAdModal = () => {
   const API = process.env.NEXT_PUBLIC_API_BASE_URL
 
   useEffect(() => {
+    // Check if popup was already shown during this session
+    const isPopupShown = sessionStorage.getItem('popupShown');
+    
+    if (isPopupShown) {
+      // If popup already shown, no need to fetch ads again
+      return;
+    }
+
     const fetchAds = async () => {
       try {
         const res = await fetch(`${API}/api/popupad`, { cache: "no-store" });
@@ -29,6 +37,8 @@ const PopupAdModal = () => {
           setTimeout(() => {
             setVisible(true);
             triggerFireworks();
+            // Set flag in sessionStorage once popup is shown
+            sessionStorage.setItem('popupShown', 'true');
           }, 6000);
         }
       } catch (error) {
@@ -88,15 +98,15 @@ const PopupAdModal = () => {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Animated border */}
-<div className="absolute -inset-2 rounded-lg bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 opacity-75 animate-pulse pointer-events-none"></div>
+        <div className="absolute -inset-2 rounded-lg bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 opacity-75 animate-pulse pointer-events-none"></div>
         
-<div className="relative bg-white rounded-lg overflow-visible shadow-2xl">
+        <div className="relative bg-white rounded-lg overflow-visible shadow-2xl">
           <button
-  onClick={handleClose}
-  className="absolute -top-3 -right-3 z-20 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center transition-all transform hover:scale-110 animate-bounce shadow-lg"
->
-  <X size={18} />
-</button>
+            onClick={handleClose}
+            className="absolute -top-3 -right-3 z-20 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center transition-all transform hover:scale-110 animate-bounce shadow-lg"
+          >
+            <X size={18} />
+          </button>
           <img
             src={ads[currentIndex].image}
             alt="Popup Ad"
