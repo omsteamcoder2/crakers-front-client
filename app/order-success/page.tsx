@@ -7,7 +7,10 @@ import { CheckCircle, Home, ShoppingBag, AlertCircle } from "lucide-react";
 const OrderSuccessPage = () => {
   const [orderDetails, setOrderDetails] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const phoneNumber = process.env.NEXT_PUBLIC_PHONE_NUMBER;
+const emailAddress = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
+  
+  
   useEffect(() => {
     const order = JSON.parse(localStorage.getItem("orderDetails") || "{}");
     if (Object.keys(order).length === 0) {
@@ -128,10 +131,10 @@ const OrderSuccessPage = () => {
             </p>
             <div className="space-y-2">
               <p className="text-sm">
-                <span className="font-medium">Phone:</span> +91 9876543210
+                <span className="font-medium">Phone:</span> {phoneNumber}
               </p>
               <p className="text-sm">
-                <span className="font-medium">Email:</span> support@crakers.com
+                <span className="font-medium">Email:</span> {emailAddress}
               </p>
             </div>
           </div>

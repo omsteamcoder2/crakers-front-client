@@ -94,14 +94,14 @@ export default function RocketAnimation() {
               animation: `${rocket.trajectory} 4s ease-out forwards`,
               animationDelay: `${rocket.delay}ms`,
             }}
-          >
-            Rocket Fins
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+          > */}
+            {/* Rocket Fins */}
+            {/* <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
               <div className="w-2 h-2 bg-gray-600 rounded-b-sm"></div>
-            </div>
+            </div> */}
 
-            Rocket Nose
-            <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-silver rounded-full"></div>
+            {/* Rocket Nose */}
+            {/* <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-silver rounded-full"></div>
           </div> */}
 
           {/* Spark Trail */}
@@ -138,7 +138,7 @@ export default function RocketAnimation() {
             ))}
           </div> */}
 
-{/* burst */}
+          {/* Burst */}
           <div
             className={`absolute opacity-0`}
             style={{

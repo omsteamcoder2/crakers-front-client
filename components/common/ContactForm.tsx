@@ -5,6 +5,9 @@ import { useState } from "react"
 import { Send } from "lucide-react"
 
 export default function ContactForm() {
+  const phoneNumber = process.env.NEXT_PUBLIC_PHONE_NUMBER;
+const whatsappLink = process.env.NEXT_PUBLIC_WHATSAPP_LINK;
+const emailAddress = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,7 +37,7 @@ Message: ${formData.message}
 
 Please get back to me soon. Thank you!`
 
-    const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(whatsappMessage)}`
+    const whatsappUrl = `https://wa.me/${whatsappLink}?text=${encodeURIComponent(whatsappMessage)}`
     window.open(whatsappUrl, "_blank")
   }
 

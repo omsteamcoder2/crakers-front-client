@@ -128,8 +128,8 @@ const proceedToCheckout = () => {
 
   // Desktop Cart Item Component
   const DesktopCartItem = ({ item }: { item: CartItem }) => (
-    <div key={item.id} className="border border-gray-200 rounded-lg md:rounded-xl p-4 md:p-6 hover:shadow-md transition-shadow">
-      <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
+    <div key={item.id} className="border border-gray-200 rounded-lg md:rounded-xl p-2 md:p-4 hover:shadow-md transition-shadow">
+      <div className="flex flex-col sm:flex-row gap-2 md:gap-4">
         <div className="flex-shrink-0">
           <Image
             src={item.image || "/placeholder.svg"}
@@ -296,7 +296,7 @@ const proceedToCheckout = () => {
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
               <div className="lg:col-span-2">
-                <div className="bg-white rounded-xl md:rounded-2xl shadow-lg p-2 md:p-6 mb-3 md:mb-6">
+                <div className="bg-white rounded-xl md:rounded-2xl shadow-lg p-2 md:p-4 mb-3 md:mb-6">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 md:mb-6 gap-2">
                     <h2 className="text-xl md:text-2xl font-bold text-gray-800">Cart Items</h2>
                     <p className="text-xs md:text-sm text-gray-600">
@@ -317,69 +317,78 @@ const proceedToCheckout = () => {
               </div>
 
               <div className="lg:col-span-1">
-                <div className="bg-white rounded-xl md:rounded-2xl shadow-lg p-2 md:p-6 sticky top-4 md:top-6">
-                  <div className="mb-4 md:mb-6">
-                    <h3 className="text-base md:text-lg font-bold text-gray-800 mb-2 md:mb-4">Notes</h3>
-                    <textarea
-                      value={notes}
-                      onChange={(e) => setNotes(e.target.value)}
-                      placeholder="Add special instructions for your order..."
-                      className="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-xs md:text-sm"
-                      rows={3}
-                    />
-                  </div>
+  <div className="bg-white rounded-xl md:rounded-2xl shadow-lg p-2 md:p-6 sticky top-4 md:top-6">
+    <div className="mb-4 md:mb-6">
+      <h3 className="text-base md:text-lg font-bold text-gray-800 mb-2 md:mb-4">Shipping Information</h3>
+      <p className="text-xs md:text-sm text-gray-600 mb-3">Your order will be shipped to the address provided during checkout. Ensure your address is correct to avoid any delays.</p>
+      <div className="space-y-2">
+        <div className="flex justify-between">
+          <span className="font-semibold text-sm md:text-base text-gray-800">Delivery Time:</span>
+          <span className="text-sm md:text-base text-gray-600">3-5 business days</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-semibold text-sm md:text-base text-gray-800">Shipping Method:</span>
+          <span className="text-sm md:text-base text-gray-600">Standard Delivery</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-semibold text-sm md:text-base text-gray-800">Carrier:</span>
+          <span className="text-sm md:text-base text-gray-600">XYZ Logistics</span>
+        </div>
+      </div>
+    </div>
 
-                  <div className="border-t border-gray-200 pt-4 md:pt-6">
-                    <h3 className="text-base md:text-lg font-bold text-gray-800 mb-3 md:mb-4">Booking Summary</h3>
+    <div className="border-t border-gray-200 pt-4 md:pt-6">
+      <h3 className="text-base md:text-lg font-bold text-gray-800 mb-3 md:mb-4">Booking Summary</h3>
 
-                    <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
-                      <div className="flex justify-between">
-                        <span className="text-xs md:text-sm text-gray-600">Sub-total:</span>
-                        <span className="font-semibold text-sm md:text-base">₹{subtotal.toLocaleString()}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-xs md:text-sm text-gray-600">Packing Charges:</span>
-                        <span className="font-semibold text-sm md:text-base">₹{packingCharges}</span>
-                      </div>
-                      <div className="border-t border-gray-200 pt-2 md:pt-3">
-                        <div className="flex justify-between text-base md:text-lg font-bold">
-                          <span>Total Payable:</span>
-                          <span className="text-red-600">₹{totalPayable.toLocaleString()}</span>
-                        </div>
-                      </div>
-                      <div className="text-xs md:text-sm text-gray-600">
-                        <strong>Transport Charges:</strong> Paid directly to transport agency.
-                      </div>
-                    </div>
+      <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
+        <div className="flex justify-between">
+          <span className="text-xs md:text-sm text-gray-600">Sub-total:</span>
+          <span className="font-semibold text-sm md:text-base">₹{subtotal.toLocaleString()}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-xs md:text-sm text-gray-600">Packing Charges:</span>
+          <span className="font-semibold text-sm md:text-base">₹{packingCharges}</span>
+        </div>
+        <div className="border-t border-gray-200 pt-2 md:pt-3">
+          <div className="flex justify-between text-base md:text-lg font-bold">
+            <span>Total Payable:</span>
+            <span className="text-red-600">₹{totalPayable.toLocaleString()}</span>
+          </div>
+        </div>
+        <div className="text-xs md:text-sm text-gray-600">
+          <strong>Transport Charges:</strong> Paid directly to transport agency.
+        </div>
+      </div>
 
-                    {subtotal < minimumOrderValue && (
-                      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 md:p-4 mb-4 md:mb-6">
-                        <p className="text-yellow-800 text-xs md:text-sm">
-                          Add ₹{(minimumOrderValue - subtotal).toLocaleString()} more to reach minimum order value
-                        </p>
-                      </div>
-                    )}
+      {subtotal < minimumOrderValue && (
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 md:p-4 mb-4 md:mb-6">
+          <p className="text-yellow-800 text-xs md:text-sm">
+            Add ₹{(minimumOrderValue - subtotal).toLocaleString()} more to reach minimum order value
+          </p>
+        </div>
+      )}
 
-                    <button
-  onClick={proceedToCheckout}
-  disabled={subtotal < minimumOrderValue}
-  className="w-full bg-blue-600 text-white py-2 md:py-3 px-4 md:px-6 rounded-lg hover:bg-blue-700 font-semibold text-sm md:text-base disabled:bg-gray-400 disabled:cursor-not-allowed"
->
-  Proceed to Checkout →
-</button>
+      <button
+        onClick={proceedToCheckout}
+        disabled={subtotal < minimumOrderValue}
+        className="w-full bg-blue-600 text-white py-2 md:py-3 px-4 md:px-6 rounded-lg hover:bg-blue-700 font-semibold text-sm md:text-base disabled:bg-gray-400 disabled:cursor-not-allowed"
+      >
+        Proceed to Checkout →
+      </button>
 
-                    <div className="mt-3 md:mt-4 text-center">
-                      <Link
-                        href="/quick-purchase"
-                        onClick={() => window.scrollTo(0, 0)}
-                        className="text-red-600 hover:text-red-700 font-medium text-sm md:text-base"
-                      >
-                        Continue Shopping
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <div className="mt-3 md:mt-4 text-center">
+        <Link
+          href="/quick-purchase"
+          onClick={() => window.scrollTo(0, 0)}
+          className="text-red-600 hover:text-red-700 font-medium text-sm md:text-base"
+        >
+          Continue Shopping
+        </Link>
+      </div>
+    </div>
+  </div>
+</div>
+
             </div>
           )}
         </div>

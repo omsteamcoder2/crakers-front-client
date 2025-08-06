@@ -6,8 +6,9 @@ import { WhatsappLogo } from 'phosphor-react'
 
 export default function WhatsAppCTA() {
   const [sparkles, setSparkles] = useState<any[]>([]);
+const phoneNumber = process.env.NEXT_PUBLIC_PHONE_NUMBER;
+  const whatsappLink = process.env.NEXT_PUBLIC_WHATSAPP_LINK;
 
-  // Generate random sparkle positions only on the client side
   useEffect(() => {
     const randomSparkles = [...Array(15)].map(() => ({
       left: `${Math.random() * 100}%`,
@@ -50,7 +51,7 @@ export default function WhatsAppCTA() {
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <a
-              href="https://wa.me/919876543210?text=Hi%20Crakers,%20I%20want%20to%20place%20an%20order%20for%20fireworks"
+              href={`https://wa.me/${whatsappLink}?text=Hi%20Crakers,%20I%20want%20to%20place%20an%20order%20for%20fireworks`}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white text-green-600 px-5 py-3 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-full text-sm sm:text-base md:text-lg font-semibold hover:bg-green-50 transition-all duration-300 hover:scale-[1.02] sm:hover:scale-105 shadow-md sm:shadow-lg inline-flex items-center justify-center space-x-2 sm:space-x-3"
@@ -60,10 +61,10 @@ export default function WhatsAppCTA() {
             </a>
 
             <a
-              href="tel:+919876543210"
+              href={`tel:${phoneNumber}`}
               className="bg-transparent border-2 border-white text-white px-5 py-3 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-full text-sm sm:text-base md:text-lg font-semibold hover:bg-white hover:text-green-600 transition-all duration-300 hover:scale-[1.02] sm:hover:scale-105"
             >
-              Call Now: +91 00000 00000
+              Call Now: {phoneNumber}
             </a>
           </div>
 

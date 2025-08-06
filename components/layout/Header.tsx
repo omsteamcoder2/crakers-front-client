@@ -8,6 +8,7 @@ import { ROUTES } from "@/constants/routes"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+const phoneNumber = process.env.NEXT_PUBLIC_PHONE_NUMBER
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 
@@ -39,11 +40,11 @@ export default function Header() {
           {/* Header Actions */}
           <div className="hidden md:flex items-center space-x-4">
             <a
-              href="tel:+919876543210"
+              href={`tel:${phoneNumber}`}
               className="flex items-center space-x-2 text-white hover:text-yellow-200 transition-colors"
             >
               <Phone className="w-4 h-4" />
-              <span className="text-sm">+91 00000 00000</span>
+              <span className="text-sm">{phoneNumber}</span>
             </a>
             <Link
               href="/cart"

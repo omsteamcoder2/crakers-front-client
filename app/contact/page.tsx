@@ -4,6 +4,10 @@ import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react"
 import { WhatsappLogo } from 'phosphor-react'
 
 export default function ContactPage() {
+
+  const phoneNumber = process.env.NEXT_PUBLIC_PHONE_NUMBER;
+const whatsappLink = process.env.NEXT_PUBLIC_WHATSAPP_LINK;
+const emailAddress = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
   return (
     <div>
       <PageHeader
@@ -25,8 +29,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800 mb-1">Phone</h3>
-                    <p className="text-sm sm:text-base text-gray-600">+91 00000 00000</p>
-                    <p className="text-sm sm:text-base text-gray-600">+91 00000 00000</p>
+                    <p className="text-sm sm:text-base text-gray-600">{ phoneNumber}</p>
+                    <p className="text-sm sm:text-base text-gray-600">{ phoneNumber}</p>
                   </div>
                 </div>
 
@@ -36,8 +40,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800 mb-1">Email</h3>
-                    <p className="text-sm sm:text-base text-gray-600">info@crakers.com</p>
-                    <p className="text-sm sm:text-base text-gray-600">orders@crakers.com</p>
+                    <p className="text-sm sm:text-base text-gray-600">{ emailAddress}</p>
                   </div>
                 </div>
 
@@ -79,7 +82,7 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <a
-                  href="https://wa.me/919876543210?text=Hi%20Crakers,%20I%20need%20help%20with%20my%20order"
+                  href={`https://wa.me/${whatsappLink}?text=Hi%20Crakers,%20I%20need%20help%20with%20my%20order`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 sm:px-5 sm:py-2 md:px-6 md:py-3 rounded-md sm:rounded-lg hover:bg-green-700 transition-colors font-medium sm:font-semibold text-xs sm:text-sm md:text-base"

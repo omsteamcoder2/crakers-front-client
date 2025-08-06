@@ -30,7 +30,8 @@ export default function CheckoutPage() {
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const addressRef = useRef<HTMLTextAreaElement>(null);
-
+    const whatsappLink = process.env.NEXT_PUBLIC_WHATSAPP_LINK;
+    
   const packingCharges = 50;
 
   useEffect(() => {
@@ -116,7 +117,7 @@ const handleConfirmOrder = async () => {
 
   const whatsappMessage = `Hi Crakers, I want to place an order:\n\n${orderDetails}\n\nItems Total: ₹${totalAmount}\nPacking Charges: ₹${packingCharges}\nGrand Total: ₹${grandTotal}\n\nCustomer Name: ${contact.name}\nPhone: ${contact.phone}\nAddress: ${contact.address}`;
 
-  const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = `https://wa.me/${whatsappLink}?text=${encodeURIComponent(whatsappMessage)}`;
 
   try {
     // Submit the order to the backend

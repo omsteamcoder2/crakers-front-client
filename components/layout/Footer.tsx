@@ -5,6 +5,11 @@ import { Phone, Mail, MapPin, MessageCircle, Facebook, Twitter, Instagram } from
 import { ROUTES } from "@/constants/routes"
 import { WhatsappLogo } from 'phosphor-react'
 
+// Access the environment variables
+const phoneNumber = process.env.NEXT_PUBLIC_PHONE_NUMBER;
+const whatsappLink = process.env.NEXT_PUBLIC_WHATSAPP_LINK;
+const emailAddress = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
+
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-r from-red-800 via-red-700 to-orange-600 text-white">
@@ -54,11 +59,11 @@ export default function Footer() {
             <div className="space-y-2 sm:space-y-3">
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300" />
-                <span className="text-sm sm:text-base text-red-100">+91 00000 00000</span>
+                <span className="text-sm sm:text-base text-red-100">{phoneNumber}</span>
               </div>
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300" />
-                <span className="text-sm sm:text-base text-red-100">info@crakers.com</span>
+                <span className="text-sm sm:text-base text-red-100">{emailAddress}</span>
               </div>
               <div className="flex items-start space-x-2 sm:space-x-3">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 mt-0.5 sm:mt-1" />
@@ -75,7 +80,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">WhatsApp Support</h3>
             <a
-              href="https://wa.me/919876543210?text=Hi%20Crakers,%20I%20need%20help%20with%20fireworks"
+              href={`https://wa.me/${whatsappLink}?text=Hi%20Crakers,%20I%20need%20help%20with%20fireworks`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 sm:space-x-3 bg-green-600 hover:bg-green-700 px-3 py-2 sm:px-4 sm:py-3 rounded-lg transition-colors duration-300 text-sm sm:text-base"

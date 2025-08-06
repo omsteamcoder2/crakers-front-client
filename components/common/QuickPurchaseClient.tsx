@@ -810,7 +810,7 @@ const proceedToBook = () => {
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-2 md:p-3 mt-3 md:mt-4">
                 <p className="text-yellow-800 text-[10px] md:text-xs">
                   <strong>Note:</strong> Once you transfer the payment, please submit the payment information in the
-                  order page. The order page link can be found in your email.
+                  order page. The order track link can be found in your whatsapp.
                 </p>
               </div>
             </div>
